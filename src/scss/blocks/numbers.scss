@@ -1,0 +1,10 @@
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+
+    &__number {
+        border: 1px solid black;
+        padding: 1.5rem;
+        font-size: 2rem
+    }
+}
