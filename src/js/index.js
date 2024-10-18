@@ -4,13 +4,14 @@ import '../scss/styles.scss';
 const cardNumbersElement = document.getElementById('card-numbers');
 const cardUserElement = document.getElementById('user-numbers');
 const cardPcElement = document.getElementById('pc-numbers');
+const resultUserElement = document.getElementById('user-result');
+const resultPcElement = document.getElementById('pc-result');
+const buttonElement = document.getElementById('button');
+
 const fragmentUser = document.createDocumentFragment();
 const fragmentNumbers = document.createDocumentFragment();
 const fragmentPc = document.createDocumentFragment();
 
-const numbersBingoElement = document.querySelectorAll('.numbers__number');
-const numbersUserElement = document.querySelectorAll('.user__number');
-const numbersPcElement = document.querySelectorAll('.pc__number');
 let userNumbers = [];
 let pcNumbers = [];
 let allowedNumbers = [];
@@ -83,19 +84,31 @@ const printPc = () => {
 };
 printPc();
 
-const checkUser = winNumber => {
+const checkWinner = winNumber => {
   if (userNumbers.includes(winNumber)) {
     let winPosition = userNumbers.indexOf(winNumber);
     cardUserElement.querySelector(`[data-number = '${winNumber}']`).classList.add('color-user');
     userNumbers.splice(winPosition, 1);
   }
-};
 
-const checkPc = winNumber => {
   if (pcNumbers.includes(winNumber)) {
     let winPosition = pcNumbers.indexOf(winNumber);
     cardPcElement.querySelector(`[data-number = '${winNumber}']`).classList.add('color-pc');
     pcNumbers.splice(winPosition, 1);
+  }
+
+  if (userNumbers.length === 0 && pcNumbers.length === 0) {
+    resultUserElement.textContent = 'Empate';
+    resultPcElement.textContent = 'Empate';
+    return;
+  }
+
+  if (userNumbers.length === 0) {
+    resultUserElement.textContent = 'BINGO';
+  }
+
+  if (pcNumbers.length === 0) {
+    resultPcElement.textContent = 'BINGO';
   }
 };
 
@@ -103,6 +116,10 @@ console.log(userNumbers, pcNumbers);
 
 const bingoNumber = () => {
   intervalId = setInterval(() => {
+    if (userNumbers.length === 0 || pcNumbers.length === 0) {
+      return;
+    }
+
     if (allowedNumbers.length === 0 || pcNumbers.length === 0 || userNumbers === 0) {
       return;
     }
@@ -113,8 +130,8 @@ const bingoNumber = () => {
 
     allowedNumbers.splice(randomPosition, 1);
 
-    checkUser(winNumber);
-    checkPc(winNumber);
-  }, 200);
+    checkWinner(winNumber);
+  }, 10);
 };
-bingoNumber();
+
+buttonElement.addEventListener('click', bingoNumber);
