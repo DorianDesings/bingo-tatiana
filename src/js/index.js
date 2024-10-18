@@ -1,29 +1,26 @@
 // El styles lo importamos aquí, ya se carga después al compilar todo
-import "../scss/styles.scss";
+import '../scss/styles.scss';
 
-const cardNumbersElement = document.getElementById("card-numbers");
-const cardUserElement = document.getElementById("user-numbers");
-const cardPcElement = document.getElementById("pc-numbers");
+const cardNumbersElement = document.getElementById('card-numbers');
+const cardUserElement = document.getElementById('user-numbers');
+const cardPcElement = document.getElementById('pc-numbers');
 const fragmentUser = document.createDocumentFragment();
 const fragmentNumbers = document.createDocumentFragment();
 const fragmentPc = document.createDocumentFragment();
 
-const numbersBingoElement = document.querySelectorAll(".numbers__number");
-const numbersUserElement = document.querySelectorAll(".user__number");
-const numbersPcElement = document.querySelectorAll(".pc__number");
+const numbersBingoElement = document.querySelectorAll('.numbers__number');
+const numbersUserElement = document.querySelectorAll('.user__number');
+const numbersPcElement = document.querySelectorAll('.pc__number');
 let userNumbers = [];
 let pcNumbers = [];
 let allowedNumbers = [];
-let bingoNumbers = [];
-let counterUser = 0;
-let counterPc = 0;
 let intervalId;
 
 const printNumbers = () => {
   for (let i = 1; i < 100; i++) {
     allowedNumbers.push(i);
-    const newNumber = document.createElement("span");
-    newNumber.classList.add("numbers__number");
+    const newNumber = document.createElement('span');
+    newNumber.classList.add('numbers__number');
     newNumber.textContent = i;
     newNumber.dataset.number = i;
     fragmentNumbers.append(newNumber);
@@ -59,11 +56,11 @@ const generatePcNumbers = () => {
 const printUser = () => {
   generateUserNumbers();
 
-  userNumbers.forEach((number) => {
-    const newNumber = document.createElement("span");
+  userNumbers.forEach(number => {
+    const newNumber = document.createElement('span');
     newNumber.textContent = number;
     newNumber.dataset.number = number;
-    newNumber.classList.add("user__number");
+    newNumber.classList.add('user__number');
     fragmentUser.append(newNumber);
   });
 
@@ -74,11 +71,11 @@ printUser();
 const printPc = () => {
   generatePcNumbers();
 
-  pcNumbers.forEach((number) => {
-    const newNumber = document.createElement("span");
+  pcNumbers.forEach(number => {
+    const newNumber = document.createElement('span');
     newNumber.textContent = number;
     newNumber.dataset.number = number;
-    newNumber.classList.add("pc__number");
+    newNumber.classList.add('pc__number');
     fragmentPc.append(newNumber);
   });
 
@@ -86,33 +83,38 @@ const printPc = () => {
 };
 printPc();
 
-const checkUser = (winNumber) => {
+const checkUser = winNumber => {
   if (userNumbers.includes(winNumber)) {
-    const removeNumber = userNumbers.indexOf(winNumber);
-    counterUser++;
+    let winPosition = userNumbers.indexOf(winNumber);
+    cardUserElement.querySelector(`[data-number = '${winNumber}']`).classList.add('color-user');
+    userNumbers.splice(winPosition, 1);
   }
 };
 
+const checkPc = winNumber => {
+  if (pcNumbers.includes(winNumber)) {
+    let winPosition = pcNumbers.indexOf(winNumber);
+    cardPcElement.querySelector(`[data-number = '${winNumber}']`).classList.add('color-pc');
+    pcNumbers.splice(winPosition, 1);
+  }
+};
+
+console.log(userNumbers, pcNumbers);
+
 const bingoNumber = () => {
   intervalId = setInterval(() => {
-    const randomNumber = Math.floor(Math.random() * allowedNumbers.length);
-    if (!bingoNumbers.includes(randomNumber)) {
-      cardNumbersElement
-        .querySelector(`[data-number = '${randomNumber}']`)
-        .classList.add("color-numbers");
-
-      if (userNumbers.includes(randomNumber)) {
-        cardUserElement
-          .querySelector(`[data-number = '${randomNumber}']`)
-          .classList.add("color-user");
-      }
-
-      if (pcNumbers.includes(randomNumber)) {
-        cardPcElement
-          .querySelector(`[data-number = '${randomNumber}']`)
-          .classList.add("color-pc");
-      }
+    if (allowedNumbers.length === 0 || pcNumbers.length === 0 || userNumbers === 0) {
+      return;
     }
+    const randomPosition = Math.floor(Math.random() * allowedNumbers.length);
+    let winNumber = allowedNumbers[randomPosition];
+
+    cardNumbersElement.querySelector(`[data-number = '${winNumber}']`).classList.add('color-numbers');
+
+    allowedNumbers.splice(randomPosition, 1);
+
+    checkUser(winNumber);
+    checkPc(winNumber);
   }, 200);
 };
 bingoNumber();
