@@ -1,10 +1,21 @@
-.pc {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+.card__pc {
+  grid-column: 2;
+  grid-row: 1;
+}
 
-    &__number {
-        border: 1px solid black;
-        padding: 1.5rem;
-        font-size: 2rem
-    }
+.pc {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 3px solid #d92e2e;
+  justify-content: start;
+
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 88px;
+    height: 88px;
+    border: 3px solid #d92e2e;
+    font-size: 2rem;
+  }
 }
