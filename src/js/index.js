@@ -21,7 +21,7 @@ const printNumbers = () => {
   for (let i = 1; i < 100; i++) {
     allowedNumbers.push(i);
     const newNumber = document.createElement('span');
-    newNumber.classList.add('numbers__number');
+    newNumber.classList.add('card__bingo-number');
     newNumber.textContent = i;
     newNumber.dataset.number = i;
     fragmentNumbers.append(newNumber);
@@ -61,7 +61,7 @@ const printUser = () => {
     const newNumber = document.createElement('span');
     newNumber.textContent = number;
     newNumber.dataset.number = number;
-    newNumber.classList.add('user__number');
+    newNumber.classList.add('card__number');
     fragmentUser.append(newNumber);
   });
 
@@ -76,7 +76,7 @@ const printPc = () => {
     const newNumber = document.createElement('span');
     newNumber.textContent = number;
     newNumber.dataset.number = number;
-    newNumber.classList.add('pc__number');
+    newNumber.classList.add('card__number');
     fragmentPc.append(newNumber);
   });
 

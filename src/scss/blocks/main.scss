@@ -2,9 +2,8 @@
 
 .main {
   width: 90%;
-  
-
-  @include responsive (desktop) {
+  margin-inline: auto;
+  @include responsive(desktop) {
     grid-template-columns: repeat(3, 1fr);
   }
 }

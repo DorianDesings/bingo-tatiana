@@ -1,8 +1,12 @@
+@use '../mixins/responsive.scss' as *;
+
 .title {
-  &__h1 {
-    margin-block: 3rem;
-    text-align: center;
-    font-size: 128px;
-    color: #d92e2e;
+  margin-block: 1rem 0;
+  text-align: center;
+  font-size: 4rem;
+  color: #d92e2e;
+
+  @include responsive(desktop) {
+    font-size: 8rem;
   }
 }

@@ -1,0 +1,47 @@
+@use '../mixins/responsive.scss' as *;
+
+.card {
+  width: fit-content;
+  margin-inline: auto;
+  text-align: center;
+
+  &__title {
+    margin-block: 1rem;
+    font-size: 1rem;
+  }
+
+  &__numbers {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border: 3px solid #d92e2e;
+  }
+
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #d92e2e;
+    padding: 0.5rem;
+
+    @include responsive(desktop) {
+      font-size: 2rem;
+      width: 88px;
+      height: 88px;
+    }
+  }
+
+  &__bingo-numbers {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+  }
+
+  &__bingo-number {
+    padding: 0.3rem;
+    text-align: center;
+    font-size: 0.5rem;
+  }
+
+  &--pc {
+    margin-bottom: 1rem;
+  }
+}
