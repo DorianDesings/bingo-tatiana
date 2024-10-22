@@ -1,21 +1,40 @@
+@use '../mixins/responsive.scss' as *;
+
 .card__pc {
-  grid-column: 2;
-  grid-row: 1;
+  text-align: end;
+  width: 65%;
+
+  @include responsive (desktop) {
+    grid-row: 1;
+    grid-column: 3;
+  }
 }
 
 .pc {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   border: 3px solid #d92e2e;
-  justify-content: start;
+  justify-content: center;
+  width: 220px;
+  
+  @include responsive (desktop) {
+    width: 446px;
+
+  }
 
   &__number {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 88px;
-    height: 88px;
     border: 3px solid #d92e2e;
-    font-size: 2rem;
+    font-size: 1;
+    width: 44px;
+    height: 44px;
+
+    @include responsive (desktop) {
+      font-size: 2rem;
+      width: 88px;
+      height: 88px;
+    }
   }
 }

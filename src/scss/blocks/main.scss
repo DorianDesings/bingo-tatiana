@@ -1,8 +1,10 @@
-.main {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+@use '../mixins/responsive.scss' as *;
 
-  gap: 2rem;
-  justify-content: center;
-  align-items: center;
+.main {
+  width: 90%;
+  
+
+  @include responsive (desktop) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

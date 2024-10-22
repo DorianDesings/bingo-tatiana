@@ -1,10 +1,17 @@
+@use '../mixins/responsive.scss' as *;
+
 .numbers {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
 
   &__number {
-    padding: 10px;
-    font-size: 20px;
+    padding: 0.3rem;
     text-align: center;
+    font-size: 0.5rem;
+    
+    @include responsive (desktop) {
+      font-size: 20px;
+      
+    }
   }
 }
